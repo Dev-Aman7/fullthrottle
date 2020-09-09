@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import moment from "moment"; //Datepicker only receives moment as value
 import { Card, Avatar, Modal, Button, DatePicker, Table, Row } from "antd";
 import "./CustomCard.css";
 
@@ -11,10 +12,10 @@ const { Meta } = Card;
 const CustomCard = () => {
     //Open close modal
     const [visible, setVisible] = useState(false);
-
+    const [user, setUser] = useState(members[0]);
     //Selects member whose activity to be shown
     const [activity, setActivity] = useState([]);
-
+    const [d, setd] = useState(null);
     //Close modal
     const handleOk = () => {
         console.log("ok");
@@ -23,14 +24,18 @@ const CustomCard = () => {
 
     //Select user
     const clickHandler = (ind) => {
+        setd();
         setActivity(members[ind].activity_periods);
+        setUser(members[ind]);
         setVisible(true);
     };
 
     //Filter activity based on date
     const dateHandler = (data, dateString) => {
-        // console.log(dateString, data);
-        const newActivity = activity.filter((elem) => {
+        console.log(dateString, data);
+        //If dateString is null due to clear date option then set date null
+        setd(dateString ? moment(dateString) : null);
+        const newActivity = user.activity_periods.filter((elem) => {
             const d = new Date(elem.start_time.slice(0, 11));
             const date = d.getDate();
             const month = d.getMonth() + 1;
@@ -86,7 +91,7 @@ const CustomCard = () => {
                     </Button>,
                 ]}
             >
-                <DatePicker onChange={dateHandler} />
+                <DatePicker onChange={dateHandler} value={d} />
                 <Table dataSource={activity}>
                     <Column title="From" dataIndex="start_time" key="Start" />
                     <Column title="To" dataIndex="end_time" key="End" />
