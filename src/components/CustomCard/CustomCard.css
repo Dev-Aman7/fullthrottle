@@ -1,0 +1,24 @@
+.container {
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 5rem;
+    max-width: 70rem;
+
+    justify-content: space-around;
+    align-items: center;
+    align-content: center;
+    padding: 2rem;
+    box-shadow: 7px 6px 31px 0px rgba(161, 153, 161, 1);
+    background-color: #fff;
+    border-radius: 0.5rem;
+}
+
+.card {
+    border-radius: 0.5rem;
+    box-shadow: 7px 6px 31px 0px rgba(161, 153, 161, 1);
+    cursor: pointer;
+}
+
+.card :active {
+    transform: scale(0.98);
+}
